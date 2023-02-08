@@ -143,13 +143,9 @@ void dRally_System_init(void){
 			if (SDL_IsGameController(0)) {
 				gGameController = SDL_GameControllerOpen(0);
 				if (gGameController) {
-					printf("Found a game controller: %s\n", SDL_GameControllerName(gGameController));
+					//printf("Found a game controller: %s\n", SDL_GameControllerName(gGameController));
 				}
-			} else {
-				printf("Found a joystick: %s\n", SDL_JoystickName(gJoystick));
 			}
-		} else {
-			printf("Could not open joystick 0: %s\n", SDL_GetError());
 		}
 	}
 	

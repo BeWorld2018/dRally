@@ -36,7 +36,6 @@ void IO_Loop(void){
             dRally_Keyboard_break(e.key.keysym.scancode);
         }
 		else if (e.type == SDL_JOYBUTTONDOWN || e.type == SDL_JOYBUTTONUP)  {
-			printf("button %d\n", e.jbutton.button);
 			SDL_Scancode bu = 0;
 			switch (e.jbutton.button) {
 				case 2: //START
