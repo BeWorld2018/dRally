@@ -1,4 +1,5 @@
 #include "drally.h"
+#include "drally_display.h"
 
 extern void_cb ___2432c8h;
 
@@ -13,6 +14,7 @@ void dRally_System_clean(void);
 
 void dRally_Keyboard_make(SDL_Scancode);
 void dRally_Keyboard_break(SDL_Scancode);
+void SetFullscreen();
 
 void IO_Loop(void){
 
@@ -22,7 +24,12 @@ void IO_Loop(void){
 
         if(e.type == SDL_KEYDOWN){
 
-            dRally_Keyboard_make(e.key.keysym.scancode);
+			if (e.key.keysym.sym == SDLK_RETURN && e.key.keysym.mod & KMOD_ALT) 
+			{
+				SetFullscreen();
+			} else		
+			
+            	dRally_Keyboard_make(e.key.keysym.scancode);
         }
         else if(e.type == SDL_KEYUP){
            

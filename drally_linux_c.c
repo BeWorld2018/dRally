@@ -47,6 +47,23 @@ extern __BYTE__ ___60446h;
 extern void (*___6044ch)(void);
 void __VRETRACE_WAIT_IF_INACTIVE(void);
 
+int bAppFullscreen = 0;
+
+void SetFullscreen()
+{
+	int f = bAppFullscreen?0:1;
+	bAppFullscreen = f?1:0;
+
+	if (bAppFullscreen)
+	{
+		SDL_SetWindowFullscreen(GX.Window, SDL_WINDOW_FULLSCREEN);
+	}
+	else
+	{
+		SDL_SetWindowFullscreen(GX.Window, 0);
+	}
+}
+
 static void IRQ0_TimerISR(void){
 
 	if((___6045ch != 0)&&(___60441h == 0)) __VRETRACE_WAIT_IF_INACTIVE();
@@ -131,6 +148,9 @@ void __DISPLAY_SET_PALETTE_COLOR(int b, int g, int r, int n);
 
 void __PRESENTSCREEN__(void){
 
+	if (GX.Renderer)
+		SDL_RenderClear(GX.Renderer);
+	
 	if(GX.ActiveMode){
 
 		GX.Texture = SDL_CreateTextureFromSurface(GX.Renderer, GX.Surface);
