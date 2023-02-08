@@ -204,7 +204,7 @@ void dRally_Display_init(int mode){
 			SDL_WINDOWPOS_CENTERED,       						// initial y position
 			W_WIDTH,                  							// width, in pixels
 			W_HEIGHT,											// height, in pixels
-			SDL_WINDOW_HIDDEN									// flags - see below
+			SDL_WINDOW_SHOWN									// flags - see below
 		);
 	}
 

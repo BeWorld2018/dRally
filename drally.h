@@ -8,6 +8,10 @@
 #include <time.h>
 #include <SDL2/SDL.h>
 
+#ifdef __MORPHOS__
+#undef D
+#endif
+
 #include "types.h"
 
 

@@ -1,11 +1,11 @@
-CC := gcc
-#CC := clang
-MSBUILD := MSBuild.exe
+CC := ppc-morphos-gcc-9
+TARGET = drally
+AMIGADATE 	= $(shell date +"%-d.%-m.%Y")
 
-DEFINES := -DDR_MULTIPLAYER -DIPXNET -DDR_LETTERBOX #-DDR_CDCHECK
-INCLUDES := -I/usr/include/SDL2
-FLAGS := -O3 -Werror #-m32 -march=i386
-LDFLAGS := -lm -lSDL2 -lSDL2_net
+DEFINES := -D__AMIGADATE__=\"$(AMIGADATE)\" -DDR_MULTIPLAYER -DIPXNET -DDR_LETTERBOX #-DDR_CDCHECK
+INCLUDES := -I/usr/local/include
+FLAGS := -O2 -Werror -noixemul
+LDFLAGS := -lm -lSDL2 -lSDL2_net -noixemul -L/usr/local/lib
 
 OBJS := data.o bss.o
 
@@ -27,18 +27,19 @@ DFR_OBJS := __dfr_1bc20h.o __dfr_197d0h.o __dfr_1c178h.o __dfr_3986ch.o __dfr_25
 
 UNI_OBJS := drally.o drencryption.o
 
-all: drally_linux
+all: $(TARGET)
 
-drally_linux: $(UNI_OBJS) $(LINUX_OBJS) $(RACE_OBJS) $(MENU_OBJS) $(SHOP_OBJS) $(UNDERGROUND_OBJS) $(BI_OBJS) $(OBJS) $(MP_CMN_OBJS) $(MP_OBJS) $(DFR_OBJS)
+$(TARGET): $(UNI_OBJS) $(LINUX_OBJS) $(RACE_OBJS) $(MENU_OBJS) $(SHOP_OBJS) $(UNDERGROUND_OBJS) $(BI_OBJS) $(OBJS) $(MP_CMN_OBJS) $(MP_OBJS) $(DFR_OBJS)
 	$(CC) -o $@ $^ $(FLAGS) $(LDFLAGS)
 
-%.o: %.c drally.h drally_keyboard.h Makefile
+%.o: %.c drally.h drally_keyboard.h
 	$(CC) -g -c -o $@ $<  $(INCLUDES) $(FLAGS) $(DEFINES)
 
-.PHONY: clean dRally.exe
+.PHONY: clean dRally
 
-dRally.exe:
-	@$(MSBUILD)
+	
+dump:
+	objdump --disassemble-all --reloc $(TARGET) >$(TARGET).s
 
 clean:
-	@rm -f *.o drally_linux
+	@rm -f *.o $(TARGET)

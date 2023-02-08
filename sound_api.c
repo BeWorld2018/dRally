@@ -132,7 +132,11 @@ void dRally_Sound_init(__BYTE__ sound){
 
 			SDL_memset(&a, 0, sizeof(a));
 			a.freq = SOUND_SAMPLERATE;
+#ifdef __MORPHOS__
+			a.format = AUDIO_S16SYS;
+#else		
 			a.format = AUDIO_S16;
+#endif
 			a.channels = 2;
 			a.samples = SOUND_SAMPLES;
 			a.callback = (SDL_AudioCallback)&audio_s16_stereo_cb;

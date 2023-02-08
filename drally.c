@@ -6,6 +6,11 @@ extern __DWORD__ ___19bd60h;
 void ___623d4h(void);
 #endif
 
+#ifdef __MORPHOS__
+unsigned long __stack = 1024000;
+static const char *version __attribute__((used)) = "$VER: dRally (" __AMIGADATE__ ")";
+#endif
+
 extern void_cb ___2432c8h;
 
 void dRally_Keyboard_init(void);

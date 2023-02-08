@@ -1,7 +1,11 @@
 #include "drally.h"
 #include "drmemory.h"
 
+#ifdef __MORPHOS__
+#define SAMPLES 			1024
+#else
 #define SAMPLES 			256
+#endif
 #define VOLUME_MAX 			100
 #define SAMPLELIB_NEW		0
 #define SAMPLELIB_RESAMPLE	1
