@@ -224,7 +224,7 @@ void dRally_Display_init(int mode){
 			SDL_WINDOWPOS_CENTERED,       						// initial y position
 			W_WIDTH,                  							// width, in pixels
 			W_HEIGHT,											// height, in pixels
-			SDL_WINDOW_SHOWN									// flags - see below
+			SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE				// flags - see below
 		);
 	}
 
@@ -232,7 +232,10 @@ void dRally_Display_init(int mode){
 
 		SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "2");
 		GX.Renderer = SDL_CreateRenderer(GX.Window, -1, SDL_RENDERER_ACCELERATED);
-		//GX.Renderer = SDL_CreateRenderer(GX.Window, -1, SDL_RENDERER_SOFTWARE);
+		if (GX.Renderer == NULL) 
+			GX.Renderer = SDL_CreateRenderer(GX.Window, -1, SDL_RENDERER_SOFTWARE);
+		
+		SDL_RenderSetLogicalSize(GX.Renderer, W_WIDTH, W_HEIGHT);
 	}
 }
 
