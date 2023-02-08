@@ -16,6 +16,9 @@ void dRally_Memory_clean(void);
 
 void_cb exit_cb_array[NUM_ATEXIT_CALLBACKS] = {0};
 
+SDL_Joystick *gJoystick = NULL;		
+SDL_GameController* gGameController = NULL;
+
 void dRally_System_doExitCallbacks(void){
 
     unsigned int   n;
@@ -128,11 +131,28 @@ void dRally_System_init(void){
 
     time_t 		tmt;
 
-	if(SDL_Init(SDL_INIT_VIDEO)){
+	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER)){
 		
 		SDL_Log("Failed to init video subsystem: %s", SDL_GetError());
 	}
-
+	
+	if (SDL_NumJoysticks() > 0)	{
+				
+		gJoystick = SDL_JoystickOpen(0);
+		if (gJoystick) {
+			if (SDL_IsGameController(0)) {
+				gGameController = SDL_GameControllerOpen(0);
+				if (gGameController) {
+					printf("Found a game controller: %s\n", SDL_GameControllerName(gGameController));
+				}
+			} else {
+				printf("Found a joystick: %s\n", SDL_JoystickName(gJoystick));
+			}
+		} else {
+			printf("Could not open joystick 0: %s\n", SDL_GetError());
+		}
+	}
+	
 #if !defined(_WIN32) && !defined(__MORPHOS__)
     time(&tmt);
     localtime_r(&tmt, &TimeInit);
@@ -146,5 +166,15 @@ void dRally_System_clean(void){
 
     dRally_System_doExitCallbacks();
     dRally_Memory_clean();
+	
+	if (gGameController!=NULL) {
+		SDL_GameControllerClose( gGameController );
+		gGameController = NULL;
+	}
+	if (gJoystick!=NULL) {
+		SDL_JoystickClose( gJoystick );
+		gJoystick = NULL;
+	}
+	
 	SDL_Quit();
 }
