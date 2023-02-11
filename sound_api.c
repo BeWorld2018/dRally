@@ -132,18 +132,14 @@ void dRally_Sound_init(__BYTE__ sound){
 
 			SDL_memset(&a, 0, sizeof(a));
 			a.freq = SOUND_SAMPLERATE;
-#ifdef __MORPHOS__
 			a.format = AUDIO_S16SYS;
-#else		
-			a.format = AUDIO_S16;
-#endif
 			a.channels = 2;
 			a.samples = SOUND_SAMPLES;
 			a.callback = (SDL_AudioCallback)&audio_s16_stereo_cb;
 			a.userdata = NULL;
 
 			if(SDL_InitSubSystem(SDL_INIT_AUDIO)){
-				
+
 				SDL_Log("Failed to init audio subsystem: %s", SDL_GetError());
 			}
 
@@ -151,7 +147,7 @@ void dRally_Sound_init(__BYTE__ sound){
 			audio_dev = SDL_OpenAudioDevice(NULL, 0, &a, &b, 0);
 
 			if(audio_dev == 0){
-				
+
 				SOUND = 0;
 				SDL_Log("Failed to open audio: %s", SDL_GetError());
 			}
@@ -177,7 +173,7 @@ void dRally_Sound_quit(void){
 void dRally_Sound_setMasterVolume(__DWORD__ vol){
 
 	if(SOUND&&SOUND_LOADED){
-	
+
 		MASTER_VOLUME = vol;
 		___65788h_updateVolume_cdecl();
 	}
@@ -187,7 +183,7 @@ void dRally_Sound_setMasterVolume(__DWORD__ vol){
 void dRally_Sound_setMusicVolume(__DWORD__ vol){
 
 	if(SOUND&&SOUND_LOADED){
-	
+
 		MSX_VOLUME = vol;
 		___65788h_updateVolume_cdecl();
 	}
@@ -243,11 +239,11 @@ void dRally_Sound_release(void){
 		if(Sound.sfx.data) Sound.sfx.data = 0;
 
 		if(SampleLib.data_alloc){
-		
+
 			dRMemory_free(SampleLib.data_alloc);
 			SampleLib.data_alloc = 0;
 		}
-		
+
 		dRMemory_free(SampleLib.header_alloc);
 		SampleLib.header_alloc = 0;
 		SOUND_LOADED = 0;
@@ -276,7 +272,7 @@ void dRally_Sound_load(__DWORD__ msx_t, const char * msx_f, __DWORD__ sfx_t, con
 
 	bpa_search(bpa, msx_f);
 	if((size_s3m = bpa_entry_size(bpa)) == 0){
-        
+
         strcpy(err, "Problems with [");
         strcat(err, "MUSICS.BPA");
         strcat(err, "] ");
@@ -286,7 +282,7 @@ void dRally_Sound_load(__DWORD__ msx_t, const char * msx_f, __DWORD__ sfx_t, con
         ___42944h(err);
     }
 	else if((musics_s3m = (s3m_t *)dRMemory_alloc(size_s3m)) != (s3m_t *)0){
-	
+
 		bpa_read(bpa, (__POINTER__)musics_s3m);
 		dREncryption_decodeCMF((__POINTER__)musics_s3m, size_s3m);
 		musics_s3m->orderCount = SDL_SwapLE16(musics_s3m->orderCount);
@@ -318,7 +314,7 @@ void dRally_Sound_load(__DWORD__ msx_t, const char * msx_f, __DWORD__ sfx_t, con
 
 	bpa_search(bpa, sfx_f);
 	if((size_xm = bpa_entry_size(bpa)) == 0){
-        
+
         strcpy(err, "Problems with [");
         strcat(err, "MUSICS.BPA");
         strcat(err, "] ");
@@ -361,7 +357,12 @@ void dRally_Sound_load(__DWORD__ msx_t, const char * msx_f, __DWORD__ sfx_t, con
 				samp->size = SDL_SwapLE32(samp->size);
 				samp->loop_start = SDL_SwapLE32(samp->loop_start);
 				samp->loop_length = SDL_SwapLE32(samp->loop_length);
-				// TODO swap 16-bit samples?
+				if (samp->type & 0x10) {
+					__WORD__* data = (__WORD__*)XM_getInstrumentSamplesData(inst);
+					for (int j = 0; j < samp->size / 2; j++) {
+						data[j] = SDL_SwapLE16(data[j]);
+					}
+				}
 			}
 		}
 	}
@@ -381,7 +382,7 @@ void dRally_Sound_play(void){
 	__DWORD__ 	i, n;
 
 	if(SOUND&&SOUND_LOADED){
-		
+
 		___685a4h_createPlanes_cdecl();
 
 		if(Sound.msx.data){
@@ -402,7 +403,7 @@ void dRally_Sound_play(void){
 						Music.ch_map[i] = 0xff;
 					}
 					else {
-						
+
 						n++;
 						___68a90h[n] = (Music.ch_settings[i] > 7) ? 0xc000 : 0x3000;
 						if(Music.panning&&(Music.panning[i]&0x20)) ___68a90h[n] = (Music.panning[i]&0xf)<<0xc;
@@ -453,7 +454,7 @@ void dRally_Sound_pushEffect(__BYTE__ sfx_channel, __BYTE__ n, __DWORD__ offset,
 	__BYTE__ 	l_channel;
 
 	if(SOUND&&SOUND_LOADED&&Sound.sfx.data&&sfx_channel){
-		
+
 		l_channel = sfx_channel+Sound.msx.channels-1;
 
 		if((l_channel < Sound.channels)&&(n <= SampleLib.n_sfx_samples)){
