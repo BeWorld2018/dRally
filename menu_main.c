@@ -124,7 +124,6 @@ void menu_main(void){
 
 	if(___12c38h__VESA101_CHECKBANKS()){
 			
-		__VGA3_SETMODE();
 		printf(	"DEATH RALLY Error: Your VGA-adapter is not fully VESA (VBE 1.0) compliant.\n"
 				"                   Use UNIVBE or similar emulator to fix the problem.\n");
 		printf("Please consult DRHELP.EXE for more information on how to resolve this problem.\n");

@@ -241,11 +241,26 @@ void dRally_Display_init(int mode){
 
 void dRally_Display_clean(void){
 
-	if(GX.VGA13.Surface) SDL_FreeSurface(GX.VGA13.Surface);
-	if(GX.VESA101.Surface) SDL_FreeSurface(GX.VESA101.Surface);
-	if(GX.Texture) SDL_DestroyTexture(GX.Texture);
-	if(GX.Renderer) SDL_DestroyRenderer(GX.Renderer);
-	if(GX.Window) SDL_DestroyWindow(GX.Window);
+	if(GX.VGA13.Surface) {
+		SDL_FreeSurface(GX.VGA13.Surface);
+		GX.VGA13.Surface = NULL;
+	}
+	if(GX.VESA101.Surface) {
+		SDL_FreeSurface(GX.VESA101.Surface);
+		GX.VESA101.Surface = NULL;
+	}
+	if(GX.Texture) {
+		SDL_DestroyTexture(GX.Texture);
+		GX.Texture = NULL;		
+	}
+	if(GX.Renderer) {
+		SDL_DestroyRenderer(GX.Renderer);
+		GX.Renderer = NULL;
+	}
+	if(GX.Window) {
+		SDL_DestroyWindow(GX.Window);
+		GX.Window = NULL;
+	}
 }
 
 void __VGA3_SETMODE(void){

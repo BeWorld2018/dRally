@@ -1,4 +1,5 @@
 #include "drally.h"
+#include "drally_display.h"
 
 #pragma pack(1)
 
@@ -11,6 +12,8 @@ struct dostime_t {
 
 void dRally_Memory_init(void);
 void dRally_Memory_clean(void);
+void __VGA3_SETMODE(void);
+
 
 #define NUM_ATEXIT_CALLBACKS   0x40
 
@@ -159,7 +162,10 @@ void dRally_System_init(void){
 
 
 void dRally_System_clean(void){
-
+    
+	__VGA3_SETMODE();	
+	dRally_Display_clean();
+	
     dRally_System_doExitCallbacks();
     dRally_Memory_clean();
 	

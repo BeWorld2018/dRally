@@ -16,7 +16,6 @@ extern void_cb ___2432c8h;
 void dRally_Keyboard_init(void);
 void ___60466h(int, int);
 void ___3e720h(void);
-void __VGA3_SETMODE(void);
 void dRally_System_init(void);
 void dRally_Sound_quit(void);
 void dRally_System_clean(void);
@@ -28,7 +27,6 @@ static void ___10060h(void){
 
 static void ___100dch(void){
 
-	__VGA3_SETMODE();
 	printf("DEATH RALLY Exit: CTRL+ALT+DEL pressed!\n");
 	exit(0x70);
 }

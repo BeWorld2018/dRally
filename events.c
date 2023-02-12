@@ -151,8 +151,7 @@ void IO_Loop(void){
 			dRally_Sound_quit();
 			dRally_Display_clean();
 			dRally_System_clean();
-            __VGA3_SETMODE();
-			
+
 			exit(0x70);
         }
     }

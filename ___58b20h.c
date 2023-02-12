@@ -6,7 +6,6 @@
 #endif // DR_MULTIPLAYER
 
 void ___623d4h(void);
-void __VGA3_SETMODE(void);
 void dRally_System_clean(void);
 
 unsigned char err_l[] = 
@@ -52,8 +51,6 @@ void ___58b20h(int err_n, ...){
 #if defined(DR_MULTIPLAYER)
 	if(___19bd60h != 0) ___623d4h();
 #endif // DR_MULTIPLAYER
-
-	__VGA3_SETMODE();
 
 	printf("\nESP Fatal Error %d:\n--------------------\n", err_l[n]);
 

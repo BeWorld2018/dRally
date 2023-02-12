@@ -7,7 +7,6 @@ void ___2fc50h(void);
 void ___12200h(void);
 void ___12a54h(void);
 void dRally_Sound_release(void);
-void __VGA3_SETMODE(void);
 void dRally_System_clean(void);
 
 void ___1123ch(void){
@@ -20,7 +19,6 @@ void ___1123ch(void){
 	___2fc50h();
 	dRally_Sound_release();
 	dRally_System_clean();
-	__VGA3_SETMODE();
 
 	switch(MP_ERROR){
 	case 0x64:

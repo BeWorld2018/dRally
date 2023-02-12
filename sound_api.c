@@ -166,6 +166,8 @@ void dRally_Sound_quit(void){
 
 		SDL_PauseAudioDevice(audio_dev, 1);
 		SDL_CloseAudioDevice(audio_dev);
+		audio_dev = 0;
+		SOUND = 0;
 	}
 }
 

@@ -47,7 +47,6 @@ static void ___7569ch_cdecl(__POINTER__ smpl_d, xm_sample_t * smpl_h, __DWORD__ 
 	__BYTE__ 	flags;
 	int 	old;
 
-
 	if(ins_smpls == 0){
 
 		SampleLib_addSample(___19ae04h, ___19ae04h+3, ___19ae04h, ___19ae04h+3, 0);
