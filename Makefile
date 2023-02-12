@@ -4,8 +4,8 @@ AMIGADATE 	= $(shell date +"%-d.%-m.%Y")
 
 DEFINES := -D__AMIGADATE__=\"$(AMIGADATE)\" -DDR_MULTIPLAYER -DIPXNET -DDR_LETTERBOX #-DDR_CDCHECK
 INCLUDES := -I/usr/local/include
-FLAGS := -O2 -Werror -noixemul
-LDFLAGS := -lm -lSDL2 -lSDL2_net -noixemul -L/usr/local/lib
+FLAGS := -O2 -g -Werror -noixemul
+LDFLAGS := -lSDL2_net -lSDL2  -noixemul -L/usr/local/lib -lm  -lc
 
 OBJS := data.o bss.o
 
@@ -27,13 +27,15 @@ DFR_OBJS := __dfr_1bc20h.o __dfr_197d0h.o __dfr_1c178h.o __dfr_3986ch.o __dfr_25
 
 UNI_OBJS := drally.o drencryption.o
 
+ALL_OBJS = $(UNI_OBJS) $(LINUX_OBJS) $(RACE_OBJS) $(MENU_OBJS) $(SHOP_OBJS) $(UNDERGROUND_OBJS) $(BI_OBJS) $(OBJS) $(DFR_OBJS) $(MP_CMN_OBJS) $(MP_OBJS)
+
 all: $(TARGET)
 
-$(TARGET): $(UNI_OBJS) $(LINUX_OBJS) $(RACE_OBJS) $(MENU_OBJS) $(SHOP_OBJS) $(UNDERGROUND_OBJS) $(BI_OBJS) $(OBJS) $(MP_CMN_OBJS) $(MP_OBJS) $(DFR_OBJS)
+$(TARGET): $(ALL_OBJS)
 	$(CC) -o $@ $^ $(FLAGS) $(LDFLAGS)
 
 %.o: %.c drally.h drally_keyboard.h
-	$(CC) -g -c -o $@ $<  $(INCLUDES) $(FLAGS) $(DEFINES)
+	$(CC) -c -o $@ $< $(INCLUDES) $(FLAGS) $(DEFINES)
 
 .PHONY: clean dRally
 
@@ -42,4 +44,4 @@ dump:
 	objdump --disassemble-all --reloc $(TARGET) >$(TARGET).s
 
 clean:
-	@rm -f *.o $(TARGET)
+	@rm -f $(ALL_OBJS) $(TARGET)
