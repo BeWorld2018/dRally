@@ -28,6 +28,8 @@ void ___3aaf8h(void){
 #endif // DR_MULTIPLAYER
 
     dRally_System_clean();
+#if _DEBUG
     printf("DEATH RALLY Exit: CTRL+ALT+DEL pressed.\n");
+#endif
 	exit(0x70); 
 }

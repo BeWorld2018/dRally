@@ -40,7 +40,8 @@ void ___1123ch(void){
 		printf("DEATH RALLY MP-ERROR: Unknown error!\n");
 		break;
 	}
-
+#if _DEBUG
 	printf("Please consult DRHELP.EXE for more information on how to resolve this problem.\n");
+#endif
 	exit(0x70);
 }

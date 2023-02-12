@@ -142,8 +142,9 @@ void dRally_Sound_init(__BYTE__ sound){
 
 				SDL_Log("Failed to init audio subsystem: %s", SDL_GetError());
 			}
-
+#if _DEBUG
 			printf("[dRally.SOUND] Opening audio device.\n");
+#endif
 			audio_dev = SDL_OpenAudioDevice(NULL, 0, &a, &b, 0);
 
 			if(audio_dev == 0){
@@ -151,9 +152,11 @@ void dRally_Sound_init(__BYTE__ sound){
 				SOUND = 0;
 				SDL_Log("Failed to open audio: %s", SDL_GetError());
 			}
+#if _DEBUG
 			else {
 				printf("[dRally.SOUND] Audio opened: %d hz, %d channels, %d samples\n", b.freq, b.channels, b.samples);
 			}
+#endif
 		}
 	}
 }
@@ -161,9 +164,9 @@ void dRally_Sound_init(__BYTE__ sound){
 void dRally_Sound_quit(void){
 
 	if(audio_dev){
-
+#if _DEBUG
 		printf("[dRally.SOUND] Closing audio device.\n");
-
+#endif
 		SDL_PauseAudioDevice(audio_dev, 1);
 		SDL_CloseAudioDevice(audio_dev);
 		audio_dev = 0;
@@ -265,9 +268,9 @@ void dRally_Sound_load(__DWORD__ msx_t, const char * msx_f, __DWORD__ sfx_t, con
 	xm_t *	effects_xm;
 	BPA * 	bpa;
 	char 	err[0x50];
-
+#if _DEBUG
 	printf("[dRally.SOUND] MSX: %s, SFX: %s\n", msx_f, sfx_f);
-
+#endif
 	dRally_Sound_release();
 
 	bpa = bpa_open("MUSICS.BPA");

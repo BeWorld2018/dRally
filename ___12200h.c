@@ -207,9 +207,9 @@ void ___2faf0h(void){
 }
 
 void ___12200h(void){
-
+#if _DEBUG
 	printf("[dRally.Clean] ___12200h\n");
-
+#endif
 	dRMemory_free(___1a10d8h);
 	dRMemory_free(___1a10f0h);
 	dRMemory_free(___1a0fb8h);
@@ -266,9 +266,9 @@ void ___12200h(void){
 void ___12a54h(void){
 
 	__DWORD__ 	n;
-
+#if _DEBUG
 	printf("[dRally.Clean] ___12a54h\n");
-
+#endif
 	dRMemory_free(___1a1128h);
 	dRMemory_free(___1a10f8h);
 	dRMemory_free(___1a1104h);
@@ -290,9 +290,9 @@ void ___12a54h(void){
 }
 
 void ___24ec0h(void){
-
+#if _DEBUG
 	printf("[dRally.Clean] ___24ec0h\n");
-
+#endif
 	dRMemory_free(___1a1124h__VESA101h_ScreenBufferA);
 	dRMemory_free(___1a1ed4h);
 	dRMemory_free(___1a1e90h);
@@ -340,9 +340,9 @@ void ___24ec0h(void){
 }
 
 void ___2fc50h(void){
-
+#if _DEBUG
 	printf("[dRally.Clean] ___2fc50h\n");
-
+#endif
 	dRMemory_free(___1a0f90h);
 	dRMemory_free(___1a0f88h);
 	dRMemory_free(___1a0f84h);

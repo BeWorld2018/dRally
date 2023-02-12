@@ -100,8 +100,9 @@ void ___75840h(sound_mod_t * smod){
 
 	sfx_p = (xm_t *)smod->data;
 	hi_p = (__POINTER__)sfx_p+smod->size-1;
+#if _DEBUG
 	printf("=============  XM resize: %6d >>>> ", smod->size);
-
+#endif
 	n = -1;
 	while(++n < sfx_p->instrumentCount){
 		
@@ -112,7 +113,8 @@ void ___75840h(sound_mod_t * smod){
 
 		if(hi_p > xm_smpl_data_p) hi_p = xm_smpl_data_p;
 	}
-
+#if _DEBUG
 	printf("%6lld\n", hi_p-(__POINTER__)sfx_p);
+#endif
 	dRMemory_resize((__POINTER__)sfx_p, hi_p-(__POINTER__)sfx_p);
 }

@@ -3,6 +3,7 @@ TARGET = drally
 AMIGADATE 	= $(shell date +"%-d.%-m.%Y")
 
 DEFINES := -D__AMIGADATE__=\"$(AMIGADATE)\" -DDR_MULTIPLAYER -DIPXNET -DDR_LETTERBOX #-DDR_CDCHECK
+# use -D_DEBUG flag to have orignal log
 INCLUDES := -I/usr/local/include
 FLAGS := -O2 -g -Werror -noixemul
 LDFLAGS := -lSDL2_net -lSDL2  -noixemul -L/usr/local/lib -lm  -lc

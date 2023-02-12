@@ -89,7 +89,9 @@ void ___716fch(sound_mod_t * smod){
 
     s3m     = (s3m_t *)smod->data;
     hi_p = ((__POINTER__)s3m+smod->size)-1;
+#if _DEBUG
     printf("============= S3M resize: %6d >>>> ", smod->size);
+#endif
     lo_p = (__POINTER__)s3m;
     ___19a464h = ___5f248h_cdecl(0x8000);
     Music.n_orders = s3m->orderCount;
@@ -118,8 +120,9 @@ void ___716fch(sound_mod_t * smod){
         if((tmp_p < hi_p)&&(tmp_p > lo_p)) hi_p = tmp_p;
         ___71608h_cdecl(s3m, n);
     }
-
+#if _DEBUG
     printf("%6lld\n", hi_p-(__POINTER__)s3m);
+#endif
     dRMemory_resize((__POINTER__)s3m, hi_p-(__POINTER__)s3m);
     ___5f2b4h_cdecl();
 }

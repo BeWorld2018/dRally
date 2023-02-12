@@ -21,13 +21,15 @@ void dRally_Sound_quit(void);
 void dRally_System_clean(void);
 
 static void ___10060h(void){
-
-	printf("\nDeath Rally *** Full Version 1.1\n");
+#if _DEBUG
+	printf("Death Rally *** Full Version 1.1\n");
+#endif
 }
 
 static void ___100dch(void){
-
+#if _DEBUG
 	printf("DEATH RALLY Exit: CTRL+ALT+DEL pressed!\n");
+#endif
 	exit(0x70);
 }
 

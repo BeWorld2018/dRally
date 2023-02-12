@@ -141,12 +141,12 @@ void IO_Loop(void){
 
         }
         else if(e.type == SDL_QUIT){
-			
+#if _DEBUG
             printf("DEATH RALLY Exit: SDL QUIT pressed!\n");
-			
-			#if defined(DR_MULTIPLAYER)
+#endif
+#if defined(DR_MULTIPLAYER)
 			if(___19bd60h != 0) ___623d4h();
-			#endif
+#endif
 
 			dRally_Sound_quit();
 			dRally_Display_clean();

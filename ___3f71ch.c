@@ -19,8 +19,9 @@ __POINTER__ ___3f71ch__allocateMemory(__DWORD__ size){
         dRally_System_clean();
 
         printf("DEATH RALLY Error: Cannot allocate memory!\n");
+#if _DEBUG
         printf("Please consult DRHELP.EXE for more information on how to resolve this problem.\n");
-
+#endif
 #if defined(DR_MULTIPLAYER)
         if(___19bd60h != 0) ___623d4h();
 #endif // DR_MULTIPLAYER

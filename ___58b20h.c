@@ -79,9 +79,9 @@ void ___58b20h(int err_n, ...){
 		else putchar(err_l[n]);
 	}
 	va_end(args);
-
+#if _DEBUG
 	printf("\n\a");
 	printf("Please consult DRHELP.EXE for more information on how to resolve this problem.\n");
-
+#endif
 	exit(err_n);
 }

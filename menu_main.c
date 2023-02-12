@@ -126,8 +126,9 @@ void menu_main(void){
 			
 		printf(	"DEATH RALLY Error: Your VGA-adapter is not fully VESA (VBE 1.0) compliant.\n"
 				"                   Use UNIVBE or similar emulator to fix the problem.\n");
+#if _DEBUG		
 		printf("Please consult DRHELP.EXE for more information on how to resolve this problem.\n");
-
+#endif
 		dRally_Sound_release();
 		dRally_System_clean();
 		exit(0x70);

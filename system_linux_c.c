@@ -30,8 +30,9 @@ void dRally_System_doExitCallbacks(void){
     while(n--){
 
         if(exit_cb_array[n]){
-
+#if _DEBUG
             printf("[dRally.System] Calling cleaning function @%p\n", exit_cb_array[n]);
+#endif
             exit_cb_array[n]();
             exit_cb_array[n] = (void_cb)0;
         }

@@ -242,9 +242,10 @@ void ___10b80h_cdecl(
 	total_length = 0;
 	n = -1;
 	while(++n < ___1a1f00h) total_length += ___1a1f1ch[n];
+#if _DEBUG
 	printf("[dRally.CINEM] HAF: %s\n", a_haf_file);
 	printf("[dRally.CINEM] Frames: %d, Length: %d [%.2fs]\n", ___1a1f00h, total_length, (double)total_length/70.0/*71.4285714286*/);
-
+#endif
 
 	DISPLAY_CLEAR_PALETTE();
 	old_bpa_read("MENU.BPA", EncodedFrame, "FRAMES.BPK");
@@ -292,7 +293,9 @@ void ___10b80h_cdecl(
 
 		time = SDL_GetTicks()-time;
 		seconds = (double)time/1000.0;
+#if _DEBUG
 		printf("[dRally.CINEM] Real playing time: %.2fs\n", seconds);
+#endif
 	}
 
 	fclose(fd);

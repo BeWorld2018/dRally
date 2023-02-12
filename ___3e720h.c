@@ -60,7 +60,9 @@ void ___3e720h(void){
 	___2432c8h = &___3aaf8h;
 	___1a1f3ch_counter++;
 	CONFIG_WRITE();
+#if _DEBUG
 	printf("\nLoading music & effects, please wait...\n");
+#endif
 	___3d908h();	// play intro
 
 	menu_main();
