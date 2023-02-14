@@ -15,6 +15,22 @@ void dRally_System_clean(void);
 void dRally_Keyboard_make(SDL_Scancode);
 void dRally_Keyboard_break(SDL_Scancode);
 void SetFullscreen();
+extern struct GX {
+	int 			ActiveMode;
+	int 			WindowMode;
+	struct {
+		SDL_Surface * Surface;
+	} VGA13;
+	struct {
+		SDL_Surface * Surface;
+	} VESA101;
+	SDL_Surface * 	Surface;
+	SDL_Window * 	Window;
+	SDL_Renderer * 	Renderer;
+	SDL_Texture * 	Texture;
+} GX;
+
+__BOOL__ bIntegerScale = 0;
 
 void IO_Loop(void){
 
@@ -24,12 +40,20 @@ void IO_Loop(void){
 
         if(e.type == SDL_KEYDOWN){
 
-			if (e.key.keysym.sym == SDLK_RETURN && e.key.keysym.mod & KMOD_ALT) 
-			{
-				SetFullscreen();
-			} else		
-			
+			if (e.key.keysym.mod & KMOD_ALT) {
+				if (e.key.keysym.sym == SDLK_RETURN) {
+					SetFullscreen();
+				} else if (e.key.keysym.sym == SDLK_F3 ) {
+					SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
+				} else if (e.key.keysym.sym == SDLK_F4) {
+					SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
+				} else if (e.key.keysym.sym == SDLK_F2) {						
+					bIntegerScale = !bIntegerScale;
+					SDL_RenderSetIntegerScale(GX.Renderer, (bIntegerScale?SDL_TRUE:SDL_FALSE));			
+				}
+			} else {			
             	dRally_Keyboard_make(e.key.keysym.scancode);
+			}
         }
         else if(e.type == SDL_KEYUP){
            

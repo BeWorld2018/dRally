@@ -25,7 +25,7 @@ void __VESA101_PRESENTSCREEN__(void);
 void __PRESENTSCREEN__(void);
 __BYTE__ dRally_Keyboard_popLastKey();
 
-static struct GX {
+struct GX {
 	int 			ActiveMode;
 	int 			WindowMode;
 	struct {
@@ -56,7 +56,7 @@ void SetFullscreen()
 
 	if (bAppFullscreen)
 	{
-		SDL_SetWindowFullscreen(GX.Window, SDL_WINDOW_FULLSCREEN);
+		SDL_SetWindowFullscreen(GX.Window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	}
 	else
 	{
@@ -230,7 +230,7 @@ void dRally_Display_init(int mode){
 
 	if(!GX.Renderer){
 
-		SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "2");
+		SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 		GX.Renderer = SDL_CreateRenderer(GX.Window, -1, SDL_RENDERER_ACCELERATED);
 		if (GX.Renderer == NULL) 
 			GX.Renderer = SDL_CreateRenderer(GX.Window, -1, SDL_RENDERER_SOFTWARE);
