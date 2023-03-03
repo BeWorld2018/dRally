@@ -164,6 +164,24 @@ void IO_Loop(void){
 						break;
 				}
 				break;
+			case SDL_WINDOWEVENT:
+				switch (e.window.event) 
+				{
+					case SDL_WINDOWEVENT_MINIMIZED:
+					case SDL_WINDOWEVENT_FOCUS_LOST:
+						if(GX.ActiveMode == VGA13){
+							dRally_Keyboard_make(SDL_SCANCODE_P);
+						}
+					break;
+					/*if (e.window.event == SDL_WINDOWEVENT_RESIZED) {
+						SDL_RenderClear(GX.Renderer);
+						SDL_RenderPresent(GX.Renderer);
+					}
+					break;*/
+					default:
+					break;
+				}
+				break;
 			case SDL_QUIT:
 #if _DEBUG
             	printf("DEATH RALLY Exit: SDL QUIT pressed!\n");
